@@ -153,4 +153,15 @@ export interface AirworthinessRelease {
   version: number;
   status: 'RELEASED' | 'REVOKED';
   issuedAt: string;
+  processedEventIds: string[];
+}
+
+export interface AirworthinessReleasedEvent {
+  id: string;
+  tenantId: TenantId;
+  releaseId: string;
+  releaseVersion: number;
+  workOrderId: string;
+  workOrderVersion: number;
+  occurredAt: string;
 }

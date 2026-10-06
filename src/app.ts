@@ -1,4 +1,5 @@
 import type { CoreReturn, PartStock, WorkOrder } from './domain/types.js';
+import { AirworthinessReleaseService } from './services/airworthiness-release-service.js';
 import { CertificateService } from './services/certificate-service.js';
 import { CustomsService } from './services/customs-service.js';
 import { ExternalEventService } from './services/external-event-service.js';
@@ -15,6 +16,7 @@ export class MroApplication {
   readonly inventory = new InventoryService(this.store);
   readonly certificates = new CertificateService(this.store);
   readonly workOrders = new WorkOrderService(this.store);
+  readonly airworthiness = new AirworthinessReleaseService(this.store);
   readonly customs = new CustomsService(this.store);
   readonly tenantJobs = new TenantJobService(this.store);
   readonly settlement = new SettlementService(this.store);

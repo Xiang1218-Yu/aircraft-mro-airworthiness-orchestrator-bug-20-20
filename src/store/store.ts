@@ -1,4 +1,5 @@
 import type {
+  AirworthinessRelease,
   AuditRecord,
   CertificateRecord,
   CoreReturn,
@@ -40,6 +41,7 @@ export class Store {
   readonly audit: AuditRecord[] = [];
   readonly ledger: LedgerEntry[] = [];
   readonly externalEvents = new Map<string, ExternalEvent>();
+  readonly airworthinessReleases = new Map<string, AirworthinessRelease>();
   readonly lock = new Mutex();
   private sequence = 0;
 
@@ -63,5 +65,4 @@ export class Store {
   addLedger(entry: Omit<LedgerEntry, 'id' | 'createdAt'>): void {
     this.ledger.push({ ...entry, id: this.nextId('ledger'), createdAt: this.now() });
   }
-  readonly airworthinessReleases = new Map<string, import('../domain/types.js').AirworthinessRelease>();
 }
