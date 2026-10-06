@@ -5,9 +5,11 @@
   "type": "module",
   "scripts": {
     "build": "tsc -p tsconfig.json",
-    "start": "node dist/index.js"
+    "start": "node dist/index.js",
+    "verify": "tsc -p tsconfig.verify.json && node dist-verify/verify/verify.js"
   },
   "devDependencies": {
+    "@types/node": "^26.6.4",
     "typescript": "^5.6.3"
   }
 }

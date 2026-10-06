@@ -69,6 +69,8 @@ export interface WorkOrder {
   installedParts: InstalledPart[];
   lastEventSequence: Record<string, number>;
   processedEventIds: string[];
+  // 关闭该工单的那一条（当前生效的）适航放行；撤回后清空
+  closedByReleaseId?: string;
   version: number;
 }
 
@@ -149,8 +151,22 @@ export interface LedgerEntry {
 
 export interface AirworthinessRelease {
   id: string;
+  tenantId: TenantId;
   workOrderId: string;
+  // 事件被签发时所基于的工单版本；事件到达时必须仍与工单当前版本一致（乐观并发）
+  workOrderVersion: number;
   version: number;
   status: 'RELEASED' | 'REVOKED';
   issuedAt: string;
+  revokedAt?: string;
+}
+
+// 事件总线投递的 airworthiness.released 事件。事件是延迟/乱序/重试的，
+// 因此版本与状态必须在到达时重新校验，不能信任快照。
+export interface AirworthinessReleasedEvent {
+  eventId: string;
+  releaseId: string;
+  tenantId: TenantId;
+  releaseVersion: number;
+  workOrderVersion: number;
 }

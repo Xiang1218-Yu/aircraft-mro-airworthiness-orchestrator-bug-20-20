@@ -1,4 +1,5 @@
 import type { CoreReturn, PartStock, WorkOrder } from './domain/types.js';
+import { AirworthinessReleaseService } from './services/airworthiness-release-service.js';
 import { CertificateService } from './services/certificate-service.js';
 import { CustomsService } from './services/customs-service.js';
 import { ExternalEventService } from './services/external-event-service.js';
@@ -21,6 +22,7 @@ export class MroApplication {
   readonly installation = new InstallationService(this.store);
   readonly externalEvents = new ExternalEventService(this.store);
   readonly sla = new SlaService(this.store);
+  readonly airworthiness = new AirworthinessReleaseService(this.store, this.externalEvents);
 
   seed(): void {
     const stock: PartStock = {
